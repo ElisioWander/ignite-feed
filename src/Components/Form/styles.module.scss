@@ -1,0 +1,77 @@
+@keyframes goBottom {
+  0% {
+    transform: translateY(20px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+.commentForm {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+
+  border-top: solid 1px var(--gray-600);
+
+  > strong {
+    line-height: 1.6rem;
+    color: var(--gray-100);
+  }
+
+  textarea {
+    width: 100%;
+    height: 6rem;
+
+    margin-top: 1rem;
+    padding: 1rem;
+    line-height: 1.4rem;
+
+    border: none;
+    border-radius: 8px;
+
+    resize: none;
+
+    color: var(--gray-100);
+    background-color: var(--gray-900);
+  }
+
+  footer {
+    visibility: hidden;
+    max-height: 0;
+
+    button {
+      margin-top: 1rem;
+      padding: 1rem 1.5rem;
+  
+      font-weight: bold;
+      cursor: pointer;
+  
+      border: none;
+      border-radius: 8px;
+  
+      color: var(--white);
+      background-color: var(--green-500);
+  
+      transition: background 0.2s;
+  
+      &:hover {
+        background-color: var(--green-300);
+      }
+  
+      &:focus {
+        border: solid 2px var(--gray-800);
+      }
+    }
+  }
+
+  &:focus-within footer {
+    visibility: visible;
+    max-height: none;
+
+    animation: goBottom 0.2s;
+  }
+}
+
