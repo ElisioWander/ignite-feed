@@ -1,39 +1,68 @@
 import { Avatar } from "../Avatar"
 import { Comment } from "../Comment"
 import { Form } from "../Form"
+import { format, formatDistanceToNow } from "date-fns"
+import ptBR from "date-fns/locale/pt-BR"
+
 import styles from "./styles.module.scss"
 
-export function Post() {
+interface PostProps {
+  post: {
+  id: string;
+  author: {
+    avatar_url: string;
+    name: string;
+    role: string;
+  },
+  content: Array<{
+    type: string;
+    content: string;
+  }>,
+  publishedAt: string;
+  }
+}
+
+export function Post({ post }: PostProps) {
+  const publishedAt = new Date(post.publishedAt)
+
+  const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h' ", {
+    locale: ptBR
+  })
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true,
+  })
+
+  const publishedAtToIso = publishedAt.toISOString()
+
   return (
     <article className={styles.post} >
       <header>
         <div className={styles.author} >
-          <Avatar url="https://github.com/romulorocha08.png" hasBorder />
+          <Avatar url={post.author.avatar_url} hasBorder />
           <div className={styles.authorInfo} >
-            <strong>Rômulo Rocha</strong>
-            <span>Web developer</span>
+            <strong>{post.author.name}</strong>
+            <span>{post.author.role}</span>
           </div>
         </div>
 
-        <time title="18 de Julho às 14:35h" dateTime="2022-07-18 14:35:50" >Publicado a 1 hora</time>
+        <time title={publishedDateFormatted} dateTime={publishedAtToIso} >{publishedDateRelativeToNow}</time>
       </header>
 
       <div className={styles.content} >
-        <p>Fala galeraa 👋</p>
-        <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-        <p><a href="#">jane.design/doctorcare</a></p>
-        <p>
-          <a href="#">#novoprojeto</a>
-          <a href="#">#nlw</a>
-          <a href="#">#rocketseat</a>
-        </p>
+        { post.content.map(item => {
+          if(item.type === 'paragraph') {
+            return <p>{item.content}</p>
+          } else if (item.type === 'link') {
+            return <p><a href="#">{item.content}</a></p>
+          }
+        }) }
       </div>
 
       <Form />
 
       <div className={styles.commentList} >
-        <Comment />
-        <Comment />
         <Comment />
       </div>
     </article>

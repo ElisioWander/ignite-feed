@@ -1,7 +1,7 @@
 import { Header } from "../Header";
 import { Post } from "../Post";
-
 import { Sidebar } from "../Sidebar";
+import data from "../../../data.json"
 
 import styles from "./styles.module.scss";
 
@@ -12,8 +12,9 @@ export function Dashboard() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          <Post />
-          <Post />
+          { data?.map(post => (
+            <Post key={post.id} post={post} />
+          )) }
         </main>
       </div>
     </>
