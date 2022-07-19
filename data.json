@@ -1,6 +1,5 @@
 [
   {
-    "id": "1",
     "author": {
       "avatar_url": "https://github.com/elisioWander.png",
       "name": "Elisio Wander",
@@ -14,7 +13,6 @@
     "publishedAt": "2022-07-18 21:22:00"
   },
   {
-    "id": "2",
     "author": {
       "avatar_url": "https://github.com/romulorocha08.png",
       "name": "Rômulo Rocha",

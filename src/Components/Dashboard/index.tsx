@@ -13,7 +13,7 @@ export function Dashboard() {
         <Sidebar />
         <main>
           { data?.map(post => (
-            <Post key={post.id} post={post} />
+            <Post key={post.author.avatar_url} post={post} />
           )) }
         </main>
       </div>
